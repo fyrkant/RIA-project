@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify --debug -t [reactify --es6] index.js > bundle.js"
+    "build": "browserify --debug -t [reactify --es6] src/views/index.js > bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +13,8 @@
     "babel-preset-react": "^6.1.18",
     "babelify": "^7.2.0",
     "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react-dom": "^0.14.2",
+    "react-router": "^1.0.0-rc3"
   },
   "devDependencies": {
     "browserify": "^12.0.1",
