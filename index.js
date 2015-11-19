@@ -55,7 +55,7 @@ var PreviewAdvert = React.createClass({
 var RegisterAdvertPage = React.createClass({
     getInitialState: function() {
         return {
-            titleText: 'Här kommer beskrivningen av annonsen att synas',
+            titleText: 'Här kommer annonsens titel att synas',
             descriptionText:'Här kommer beskrivningen av annonsen att synas',
             nameText:'Här kommer ditt namn att synas'
             };
