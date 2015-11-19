@@ -3,7 +3,10 @@ var React = require("react"),
 
 
 
-ReactDOM.render(
-    <h1>I am home</h1>,
-    document.getElementById('container')
-)
+module.exports = React.createClass({
+    render: function () {
+        return (
+            <h1>I am home</h1>
+        )
+    }
+})
