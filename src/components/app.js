@@ -1,16 +1,17 @@
 var React = require("react"),
-    ReactDOM = require("react-dom"),
-    RouteHandler = require('react-router').RouteHandler;
-
+Link = require('react-router').Link;
 
 
 var App = React.createClass({
         render: function () {
             return (
-                <div>
-
-                <RouteHandler />
-            </div>
+                    <nav className="navbar">
+                        <div className="navbar-header">
+                            <Link to="/login">Login</Link>
+                            <Link to="/home">Home</Link>
+                            <Link to="/newThing">NewThing</Link>
+                            {this.props.children}
+                        </div></nav>
                   );
         }
     });

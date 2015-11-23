@@ -88,9 +88,4 @@ var RegisterAdvertPage = React.createClass({
 })
 
 
-ReactDOM.render(
-    <RegisterAdvertPage />,
-    document.getElementById('container')
-)
-
 module.exports = RegisterAdvertPage;
