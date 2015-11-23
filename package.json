@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify --debug -t [reactify --es6] src/views/index.js > bundle.js"
+    "build": "browserify --debug -t [reactify --es6] src/index.js > bundle.js"
   },
   "author": "",
   "license": "ISC",
