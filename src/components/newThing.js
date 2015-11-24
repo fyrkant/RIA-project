@@ -3,8 +3,9 @@
  */
 
 var React = require("react"),
-    ReactDOM = require("react-dom");
-
+    ReactDOM = require("react-dom"),
+    Firebase = require("firebase"),
+    config = require("./config.js");
 
 var NewAdvertForm = React.createClass({
     handleChange: function() {
@@ -14,37 +15,62 @@ var NewAdvertForm = React.createClass({
             this.refs.nameText.value
         );
     },
+    saveChange: function (e) {
+        e.preventDefault();
+        var rootRef = new Firebase(config.fb);
+        var usersRef = rootRef.child('Thing');
+        var val = {Title:this.props.titleText};
+        usersRef.push(val);
+    },
     render: function() {
         return (
             <div>
                 <form>
-                    <legend for="title">Titel</legend>
+                    <legend htmlFor="title">Titel</legend>
                     <input
                         name="title"
                         type="text"
                         ref="titleText"
                         onChange={this.handleChange}
-
                     />
-                    <legend for="description">Beskrivning</legend>
+                    <legend htmlFor="description">Beskrivning</legend>
                     <input
                         name="description"
                         type="text"
                         ref="descriptionText"
                         onChange={this.handleChange}
                     />
-                    <legend for="name">Ditt namn</legend>
+                    <legend htmlFor="name">Ditt namn</legend>
                     <input
                         name="name"
                         type="text"
                         ref="nameText"
                         onChange={this.handleChange}
                     />
+                    <input
+                        type="submit"
+                        value="Skicka"
+                        className="btn btn-default"
+                        onClick={this.saveChange}
+                    />
                 </form>
             </div>
         );
     }
 });
+
+
+//var react = require('react'),
+//    Firebase = require("firebase");
+//
+//var buttn = document.getElementById('sendTofb');
+//var rootRef = new Firebase('https://angamanga.firebaseio.com');
+//
+//buttn.addEventListener('click', function(){
+//    "use strict";
+//    var currentTitle = document.getElementById('titl').value;
+//    rootRef.set(currentTitle);
+//})
 
 var PreviewAdvert = React.createClass({
     render:function(){
@@ -56,6 +82,7 @@ var PreviewAdvert = React.createClass({
         )
     }
 })
+
 var RegisterAdvertPage = React.createClass({
     getInitialState: function() {
         return {
@@ -76,6 +103,9 @@ var RegisterAdvertPage = React.createClass({
             <div>
                 <NewAdvertForm
                     onUserInput={this.handleUserInput}
+                    titleText={this.state.titleText}
+                    descriptionText={this.state.descriptionText}
+                    nameText={this.state.nameText}
                 />
                 <PreviewAdvert
                     titleText={this.state.titleText}
@@ -86,6 +116,4 @@ var RegisterAdvertPage = React.createClass({
         )
     }
 })
-
-
 module.exports = RegisterAdvertPage;

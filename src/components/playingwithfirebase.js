@@ -1,14 +1,11 @@
-
-
-
-var Firebase = require("firebase");
-
-/** @jsx React.DOM */
-
-// IMPORTANT: Replace below with your Firebase app URL
-
-
-React.render(
-    <CommentBox />,
-    document.getElementById('content')
-);
+//var react = require('react'),
+//    Firebase = require("firebase");
+//
+//var buttn = document.getElementById('sendTofb');
+//var rootRef = new Firebase('https://angamanga.firebaseio.com');
+//
+//buttn.addEventListener('click', function(){
+//    "use strict";
+//    var currentTitle = document.getElementById('titl').value;
+//    rootRef.set(currentTitle);
+//})
