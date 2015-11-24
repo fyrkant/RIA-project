@@ -21,7 +21,8 @@ View adverts
 2. List of the three last adverts are displayed
 3. Click on "view all"
 3. All adverts are listed
-===
+
+================
 CRUD-witout logged in
 Create advert
 1. User choose "create advert" from firstpage
@@ -37,26 +38,29 @@ Delete advert
 1. User navigate to hens advert and choose "delete"
 2. User is redirected to login-page
 3. After successful login: user is directed to advert in delete-mode
-===
+
+===================
 Login
 1. User clicks in login
 2. User provides correct user-credentials
 3. User is logged in
 4a. If user has adverts, a list of adverts is displayed together with link to "register new advert"
 4b. If user has no adverts, a link to "register new advert" is displayed
-===
+
+===================
 CRUD-after login
 Same as above but without login-redirect...
 
-===
+===================
 
-Display advert
-------Title-------
-|   Photo        |
-|                |
-------------------
-|Name            |
-|Description     |
-|"Login to update| 
-|or delete"      |
-------------------
+*Display advert*
+
+Title
+
+Photo
+
+Name
+
+Description
+
+"Login to update or delete"
