@@ -10,6 +10,7 @@ var App = React.createClass({
                             <Link to="/login">Login</Link>
                             <Link to="/home">Home</Link>
                             <Link to="/newThing">NewThing</Link>
+                            <Link to="/register">Register</Link>
                             {this.props.children}
                         </div></nav>
                   );
