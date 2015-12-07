@@ -15,6 +15,17 @@
 nav a{
     padding:1em;
 }
+div{
+    padding-left:0.5em;
+}
 
+.valid{
+    border-color:forestgreen;
+    color:forestgreen;
+}
+.notValid{
+    border-color:palevioletred;
+    color:palevioletred;
+}
 /*}*/
 /*@media (max-width: 499px) {  }*/

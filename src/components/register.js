@@ -7,17 +7,18 @@ var React = require("react"),
     Firebase = require("firebase"),
     config = require("./config.js");
 
-
 var RegisterUserForm = React.createClass({
        passwordmessage:'',
        handleChange: function() {
+           //this.checkValidPostcode();
             this.props.onUserInput(
             this.refs.usernameInput.value,
+            this.refs.passwordInput.value,
             this.refs.nameInput.value,
             this.refs.emailInput.value,
             this.refs.telephoneInput.value,
             this.refs.postcodeInput.value
-       )
+       );
     },
     checkPasswordMatch:function(){
       if(this.refs.passwordInput.value ===this.refs.passwordRepeatInput.value){
@@ -27,6 +28,25 @@ var RegisterUserForm = React.createClass({
                 this.passwordmessage = 'passwords don\'t match, please try again!';
             }
             },
+    checkValidPostcode:function(){
+        var postcode = this.refs.postcodeInput.value;
+       $.ajax({
+           url:'https://api.bring.com/shippingguide/api/postalCode.json?clientUrl=localhost:8080&country=SE&pnr='+postcode,
+           dataType:'json',
+           success:function(result) {
+               var postcodeCity = '';
+               result.valid == true ? postcodeCity = result.result : postcodeCity == "You entered an unvalid postcode, please try again"
+                console.log(postcodeCity);
+           },
+            error:function(xhr, status, err){
+                console.error(err.toString());
+            }
+           });
+    },
+    validateInput:function(){
+        "use strict";
+
+    },
 // set
     ////saveChange: function (e) {
     //    e.preventDefault();
@@ -36,9 +56,7 @@ var RegisterUserForm = React.createClass({
     //    usersRef.push(val);
     //},
     render: function () {
-        //validate postcodeInput
-        //validate passwords
-        return (
+       return (
             <div>
                 <div className="col-1-4 "></div>
                 <div className="col-1-4 registerForm">
@@ -50,6 +68,7 @@ var RegisterUserForm = React.createClass({
                     type="text"
                     ref="usernameInput"
                     onChange={this.handleChange}
+                    onBlur={this.validateInput}
                 />
                 <legend htmlFor="password">Password</legend>
                 <input
@@ -95,6 +114,7 @@ var RegisterUserForm = React.createClass({
                     type="number"
                     ref="postcodeInput"
                     onChange={this.handleChange}
+                    onBlur={this.checkValidPostcode}
                  />
 
             </form>
@@ -103,7 +123,6 @@ var RegisterUserForm = React.createClass({
                 )
     }
 });
-
 
 var SubmitButton = React.createClass({
     render:function(){
@@ -120,8 +139,6 @@ var SubmitButton = React.createClass({
         )
     }
 })
-
-
 
 var RegisterPreview = React.createClass({
     //add map instead of postcode
