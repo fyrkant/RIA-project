@@ -3,10 +3,9 @@ var React = require("react"),
 
 var RegisterUserForm = React.createClass({
     getInitialState:function(){
-        return
-        {
+        return{
             emailmessage: '',
-            emailColor: ''
+            emailColor: 'valid'
         };
         
     },
