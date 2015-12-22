@@ -2,14 +2,13 @@ var React = require("react"),
     ReactDOM = require("react-dom");
 
 var RegisterUserForm = React.createClass({
-//    getInitialState:function(){
-//        return
-//        {
-//            emailmessage: '',
-//            emailColor: ''
-//        };
-//        
-//    },
+    getInitialState:function(){
+        return{
+            emailmessage: '',
+            emailColor: 'valid'
+        };
+        
+    },
 //    handleChange:function(){
 //        this.props.onUserInput(
 //        this.refs.emailInput,
@@ -54,7 +53,7 @@ var RegisterUserForm = React.createClass({
                             name="email"
                             type="email"
                             ref="emailInput"
-//                            className={this.state.emailColor}
+                            className={this.state.emailColor}
 //                            onBlur={this.validateEmail}
 //                            onChange={this.handleChange}
             
@@ -69,7 +68,7 @@ var RegisterUserForm = React.createClass({
                         />
                         
                    
-
+<p>{this.state.emailmessage}</p>
                         <legend htmlFor="password">Password</legend>
                         <input
                             name="password"
