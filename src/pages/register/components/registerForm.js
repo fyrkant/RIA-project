@@ -2,44 +2,44 @@ var React = require("react"),
     ReactDOM = require("react-dom");
 
 var RegisterUserForm = React.createClass({
-    getInitialState:function(){
-        return
-        ({
-            emailmessage: '',
-            emailColor: ''
-        });
-        
-    },
-    handleChange:function(){
-        this.props.onUserInput(
-        this.refs.emailInput,
-        this.refs.passwordInput)
-            
-        }
-    }
-    validateEmail:function(){
-         var message;
-    if(emailInput.length < 3){
-        this.setState({
-            emailmessage:'username is too short, must be at least 3 characters',
-            emailColor:'notValid'
-        });
-    }
-        else if(emailInput !== emailInputRepeat){
-            this.setState({
-                emailmessage:'you have not entered two identical emailaddresses',
-                emailColor:'valid'
-            });
-            
-        }
-        else{
-        this.setState({
-            emailmessage:'ok',
-            emailColor:'valid'
-        });
-        }
-        
-    },
+//    getInitialState:function(){
+//        return
+//        {
+//            emailmessage: '',
+//            emailColor: ''
+//        };
+//        
+//    },
+//    handleChange:function(){
+//        this.props.onUserInput(
+//        this.refs.emailInput,
+//        this.refs.passwordInput)
+//            
+//        }
+//    },
+//    validateEmail:function(){
+//         var message;
+//    if(emailInput.length < 3){
+//        this.setState({
+//            emailmessage:'username is too short, must be at least 3 characters',
+//            emailColor:'notValid'
+//        });
+//    }
+//        else if(emailInput !== emailInputRepeat){
+//            this.setState({
+//                emailmessage:'you have not entered two identical emailaddresses',
+//                emailColor:'valid'
+//            });
+//            
+//        }
+//        else{
+//        this.setState({
+//            emailmessage:'ok',
+//            emailColor:'valid'
+//        });
+//        }
+//        
+//    },
     render:function(){
         
         return(
@@ -54,9 +54,9 @@ var RegisterUserForm = React.createClass({
                             name="email"
                             type="email"
                             ref="emailInput"
-                            className={this.state.emailColor}
-                            onBlur={this.validateEmail}
-                            onChange={this.handleChange}
+//                            className={this.state.emailColor}
+//                            onBlur={this.validateEmail}
+//                            onChange={this.handleChange}
             
             />
                         <legend htmlFor="email">Type your email again</legend>
@@ -64,11 +64,11 @@ var RegisterUserForm = React.createClass({
                             name="email"
                             type="email"
                             ref="emailInputRepeat"
-                            className={this.state.emailColor}
-                            onChange={this.validateEmail}
+//                            className={this.state.emailColor}
+//                            onChange={this.validateEmail}
                         />
                         
-                        <p>{this.state.emailmessage}</p>
+                   
 
                         <legend htmlFor="password">Password</legend>
                         <input
@@ -83,7 +83,12 @@ var RegisterUserForm = React.createClass({
                             ref="passwordRepeatInput"
 
                         />
-                </form></div></div>
+                </form>
+              {this.props.children}
+            </div>
+                          
+
+            </div>
             
         )
         
