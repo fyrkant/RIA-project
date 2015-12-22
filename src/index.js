@@ -3,10 +3,10 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     ReactRouter = require('react-router'),
     Router = ReactRouter.Router,
-    app = require('./components/app'),
-    home = require('./components/home'),
-    login = require('./components/login'),
-    newThing = require('./components/newThing'),
+    app = require('./pages/app'),
+    home = require('./pages/home'),
+    login = require('./pages/login'),
+    newThing = require('./pages/newThing'),
     router = require('./routes');
 
 ReactDOM.render(

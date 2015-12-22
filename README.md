@@ -16,6 +16,22 @@ with Github Pages.
 
 **Usecases:**
 
+*Register user*
+1. Navigate to firstpage
+2. Click on "Register"
+3. A registerform is displayed containing the following items:
+    -Username
+    -Name
+    -Password
+    -Password repeat
+    -Postcode
+    -Email
+    -Telephone (not required)
+4. Validation of the form is done in the client and on the server
+5. When the user add the postcode, the city is shown in the preview box
+6. When the user press submit and all required fields are filled out, the form is posted and the user is added+gets a successmessage
+7. If some fields are not filled out, the user gets a message and the form is not posted
+
 *View adverts*
 
 1. Navigate to firstpage

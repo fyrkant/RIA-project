@@ -4,12 +4,12 @@ var React = require('react'),
     Route = ReactRouter.Route,
     Router = ReactRouter.Router,
     IndexRoute = ReactRouter.IndexRoute,
-    app = require('./components/app'),
-    home = require('./components/home'),
-    login = require('./components/login'),
-    newThing = require('./components/newThing'),
-    firebase = require('./components/playingwithfirebase'),
-    register = require('./components/register');
+    app = require('./pages/app'),
+    home = require('./pages/home'),
+    login = require('./pages/login'),
+    newThing = require('./pages/newThing'),
+    firebase = require('./pages/playingwithfirebase'),
+    register = require('./pages/register/register');
 
 var routes = (
     <Router>
