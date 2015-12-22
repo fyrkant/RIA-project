@@ -11,28 +11,14 @@ var RegisterUserForm = React.createClass({
         };
 
     },
-    //    handleChange:function(){
-    //        this.props.onUserInput(
-    //        this.refs.emailInput,
-    //        this.refs.passwordInput)
-    //            
-    //        }
-    //    },
+
         validateEmail:function(){
-             var message;
-        if(this.refs.emailInput.value!==this.refs.emailInputRepeat){
+         if(this.refs.emailInput.value!==this.refs.emailInputRepeat.value){
             this.setState({
                 emailmessage:'Emails does not match',
                 emailColor:'notValid'
             });
         }
-//            else if(emailInput !== emailInputRepeat){
-//                this.setState({
-//                    emailmessage:'you have not entered two identical emailaddresses',
-//                    emailColor:'valid'
-//                });
-//                
-//            }
             else{
             this.setState({
                 emailmessage:'ok',
@@ -41,6 +27,23 @@ var RegisterUserForm = React.createClass({
             }
             
         },
+    validatePasswords:function(){
+        if(this.refs.passwordInput.value !== this.refs.passwordInputRepeat.value){
+            this.setState({
+                emailmessage:'',
+                passwordmessage:'Passwords does not match',
+                passwordColor:'notValid'
+            
+            })
+        }
+        else{
+            this.setState({
+                emailmessage:'',
+                passwordmessage:'ok',
+                passwordColor:'valid'
+            });
+        }
+    },
     render: function () {
 
         return ( 
@@ -55,8 +58,6 @@ var RegisterUserForm = React.createClass({
                     type = "email"
                     ref = "emailInput"
                     className = {this.state.emailColor}
-                    onBlur={this.validateEmail}
-            //                            onChange={this.handleChange}
                     /> 
             
                     <legend htmlFor = "email"> Type your email again </legend> 
@@ -66,9 +67,8 @@ var RegisterUserForm = React.createClass({
                     ref = "emailInputRepeat"
                     className = {this.state.emailColor}
                     onBlur={this.validateEmail}
-
-            //                            onChange={this.validateEmail}
                     />
+            
                     <p> {this.state.emailmessage} </p> 
                     <legend htmlFor = "password" > Password < /legend> < input name = "password"
                     type = "password"
@@ -79,8 +79,9 @@ var RegisterUserForm = React.createClass({
                     <legend htmlFor = "passwordRepeat"> Type your password again </legend> 
                     <input name = "password"
                     type = "password"
-                    ref = "passwordRepeatInput"
+                    ref = "passwordInputRepeat"
                     className = {this.state.passwordColor}
+                    onBlur={this.validatePasswords}
                     /> 
                     
                     <p> {this.state.passwordmessage} </p> 
@@ -90,7 +91,6 @@ var RegisterUserForm = React.createClass({
         </div>    
         );
     }
-
 });
 
 module.exports = RegisterUserForm;
