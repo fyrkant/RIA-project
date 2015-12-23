@@ -6,8 +6,10 @@ var RegisterUserForm = React.createClass({
         return {
             emailmessage: '',
             emailColor: '',
+            emailValid:false,
             passwordmessage: '',
-            passwordColor: ''
+            passwordColor: '',
+            passwordValid:'false'
         };
 
     },
@@ -22,30 +24,42 @@ var RegisterUserForm = React.createClass({
             else{
             this.setState({
                 emailmessage:'ok',
-                emailColor:'valid'
+                emailColor:'valid',
+                emailValid:true
             });
             }
-            
         },
     validatePasswords:function(){
-        if(this.refs.passwordInput.value !== this.refs.passwordInputRepeat.value){
+        if(this.refs.passwordInput.value.length < 6){
             this.setState({
-                emailmessage:'',
+                passwordmessage:'Password must be longer than 6 characters!',
+                passwordColor:'notValid'
+            });
+        }
+        else if(this.refs.passwordInput.value !== this.refs.passwordInputRepeat.value){
+            this.setState({
                 passwordmessage:'Passwords does not match',
                 passwordColor:'notValid'
-            
             })
         }
         else{
             this.setState({
                 emailmessage:'',
                 passwordmessage:'ok',
-                passwordColor:'valid'
+                passwordColor:'valid',
+                passwordValid:true
             });
         }
     },
+    handleChange:function(){
+        this.props.onUserInput(
+            this.refs.emailInput.value,
+            this.refs.passwordInput.value, 
+            this.state.emailValid, 
+            this.state.passwordValid
+            )
+    },
     render: function () {
-
         return ( 
             <div>
             <div className = "col-1-4 " > < /div>
@@ -67,6 +81,7 @@ var RegisterUserForm = React.createClass({
                     ref = "emailInputRepeat"
                     className = {this.state.emailColor}
                     onBlur={this.validateEmail}
+                    onChange={this.handleChange}
                     />
             
                     <p> {this.state.emailmessage} </p> 
@@ -82,6 +97,7 @@ var RegisterUserForm = React.createClass({
                     ref = "passwordInputRepeat"
                     className = {this.state.passwordColor}
                     onBlur={this.validatePasswords}
+                    onChange={this.handleChange}
                     /> 
                     
                     <p> {this.state.passwordmessage} </p> 

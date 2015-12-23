@@ -1,35 +1,23 @@
-/**
- * Created by Angamanga on 07/12/2015.
- */
-
 var React = require("react"),
     ReactDOM = require("react-dom"),
     Firebase = require("firebase"),
     config = require("./../../../utils/config.js");
-
+//todo:tell the user if the registration was successful or not
 var SubmitButton = React.createClass({
- //set
-//    saveChange: function () {
-//    var email=this.props.emailText;
-//        var password=this.props.password;
-//        console.log(email);
-//        console.log(password);
-//        var ref = new Firebase(config.fb);
-//      ref.createUser({
-//          email:email,
-//          password:password,
-//          extra:'Extra'
-//      },
-//      function(error, userData){
-//          "use strict";
-//          if(error){
-//              console.log("Error creating user", error);
-//          } else{
-//              console.log("Successfully created user accound with uid:". userData.uid);
-//          }
-//      });
-//    },
-
+        saveChange: function () {
+        var ref = new Firebase(config.fb);
+        ref.createUser({
+          email:this.props.email,
+          password:this.props.password
+      },
+      function(error, userData){
+          if(error){
+              console.log("Error creating user", error);
+          } else{
+              console.log("Successfully created user accound with uid:");
+          }
+      });
+    },
     render:function(){
         return(
             <div>
@@ -37,7 +25,7 @@ var SubmitButton = React.createClass({
                     type="submit"
                     value="register"
                     className="btn btn-default"
-//                    onClick={this.saveChange}
+                    onClick={this.saveChange}
                 />
             </div>
         )

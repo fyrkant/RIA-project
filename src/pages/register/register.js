@@ -4,26 +4,34 @@ var React = require("react"),
     SubmitButton = require("./components/submitButton.js");
 
 var RegisterUserPage = React.createClass({
-//   getInitialState:function(){
-//        emailText:'',
-//        passwordText:''
-//   },
-//    handleUserInput:function(emailInput, passwordInput)
-//    {
-//        this.setState({
-//            emailText: emailInput,
-//            passwordText: passwordInput
-//        });
-//    },
+getInitialState:function(){
+   return{  email:'',
+            password:'',
+            emailValid:false,
+            passwordValid:false
+         };
+},
+      handleUserInput:function(emailInput, passwordInput,emailValid,passwordValid)
+  {
+        this.setState({
+            email: emailInput,
+            password: passwordInput,
+            emailValid:emailValid,
+            passwordValid:passwordValid
+        });
+    },
     render:function(){  
         return(
         <div>
             <RegisterForm 
-//            onUserInput={this.handleUserInput}
-//            emailInput={this.state.emailInput}
-//            passwordInput={this.state.passwordInput}
+            onUserInput={this.handleUserInput}
             >
-            <SubmitButton />
+            <SubmitButton 
+            email={this.state.email}
+            password={this.state.password}
+            emailValid={this.state.emailValid}
+            passwordValid={this.state.passwordValid}
+            />
             
             </RegisterForm>
             
