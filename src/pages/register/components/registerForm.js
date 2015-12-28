@@ -1,9 +1,13 @@
 var React = require("react"),
-    ReactDOM = require("react-dom");
+    ReactDOM = require("react-dom"),
+    SubmitButton = require("./submitButton.js");
+
 
 var RegisterUserForm = React.createClass({
     getInitialState() {
         return {
+            emailInput:'',
+            passwordInput:'',
             emailmessage: '',
             emailColor: '',
             passwordmessage: '',
@@ -23,6 +27,7 @@ var RegisterUserForm = React.createClass({
         }
             else{
             this.setState({
+                emailInput:this.refs.emailInput.value,
                 emailmessage:'ok',
                 emailColor:'valid',
                 buttondisabled:this.state.passwordColor==="valid"?false:true
@@ -47,18 +52,13 @@ var RegisterUserForm = React.createClass({
         }
         else{
             this.setState({
-                emailmessage:'',
+                passwordInput:this.refs.passwordInput.value,
+                emailmessage:'ok',
                 passwordmessage:'ok',
                 passwordColor:'valid',
                 buttondisabled:this.state.emailColor==="valid"?false:true
             });
         }
-    },
-    handleChange(){
-        this.props.onUserInput(
-            this.refs.emailInput.value,
-            this.refs.passwordInput.value 
-        )
     },
     render() {
         return ( 
@@ -100,12 +100,16 @@ var RegisterUserForm = React.createClass({
                     onBlur={this.validatePasswords}
                     onChange={this.handleChange}
                     /> 
-                    
-                    <p> {this.state.passwordmessage} </p> 
+            
                 </form> 
-                    {this.props.children} 
+            
             </div>
-        </div>    
+    <SubmitButton 
+                    email={this.state.emailInput}
+                    password={this.state.passwordInput}
+                    buttondisabled={this.state.buttondisabled}
+                    />
+            </div>
         );
     }
 });
