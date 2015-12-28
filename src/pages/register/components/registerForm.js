@@ -2,44 +2,47 @@ var React = require("react"),
     ReactDOM = require("react-dom");
 
 var RegisterUserForm = React.createClass({
-    getInitialState: function () {
+    getInitialState() {
         return {
             emailmessage: '',
             emailColor: '',
-            emailValid:false,
             passwordmessage: '',
             passwordColor: '',
-            passwordValid:'false'
+            buttondisabled:true
         };
 
     },
 
-        validateEmail:function(){
+        validateEmail(){
          if(this.refs.emailInput.value!==this.refs.emailInputRepeat.value){
             this.setState({
                 emailmessage:'Emails does not match',
-                emailColor:'notValid'
+                emailColor:'notValid',
+                buttondisabled:true
             });
         }
             else{
             this.setState({
                 emailmessage:'ok',
                 emailColor:'valid',
-                emailValid:true
+                buttondisabled:this.state.passwordColor==="valid"?false:true
             });
+
             }
         },
-    validatePasswords:function(){
+    validatePasswords(){
         if(this.refs.passwordInput.value.length < 6){
             this.setState({
                 passwordmessage:'Password must be longer than 6 characters!',
-                passwordColor:'notValid'
+                passwordColor:'notValid',
+                buttondisabled:true
             });
         }
         else if(this.refs.passwordInput.value !== this.refs.passwordInputRepeat.value){
             this.setState({
                 passwordmessage:'Passwords does not match',
-                passwordColor:'notValid'
+                passwordColor:'notValid',
+                buttondisabled:true
             })
         }
         else{
@@ -47,19 +50,17 @@ var RegisterUserForm = React.createClass({
                 emailmessage:'',
                 passwordmessage:'ok',
                 passwordColor:'valid',
-                passwordValid:true
+                buttondisabled:this.state.emailColor==="valid"?false:true
             });
         }
     },
-    handleChange:function(){
+    handleChange(){
         this.props.onUserInput(
             this.refs.emailInput.value,
-            this.refs.passwordInput.value, 
-            this.state.emailValid, 
-            this.state.passwordValid
-            )
+            this.refs.passwordInput.value 
+        )
     },
-    render: function () {
+    render() {
         return ( 
             <div>
             <div className = "col-1-4 " > < /div>

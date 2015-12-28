@@ -6,21 +6,19 @@ var React = require("react"),
 var RegisterUserPage = React.createClass({
 getInitialState:function(){
    return{  email:'',
-            password:'',
-            emailValid:false,
-            passwordValid:false
+            password:''
          };
 },
-      handleUserInput:function(emailInput, passwordInput,emailValid,passwordValid)
+      handleUserInput:function(emailInput, passwordInput)
   {
-        this.setState({
+        
+      this.setState({
             email: emailInput,
-            password: passwordInput,
-            emailValid:emailValid,
-            passwordValid:passwordValid
-        });
+            password: passwordInput
+      });
     },
     render:function(){  
+        console.log(this.props.buttondisabled);
         return(
         <div>
             <RegisterForm 
@@ -30,7 +28,7 @@ getInitialState:function(){
             email={this.state.email}
             password={this.state.password}
             emailValid={this.state.emailValid}
-            passwordValid={this.state.passwordValid}
+            buttondisabled={this.state.buttondisabled}
             />
             
             </RegisterForm>

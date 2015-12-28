@@ -4,7 +4,8 @@ var React = require("react"),
     config = require("./../../../utils/config.js");
 //todo:tell the user if the registration was successful or not
 var SubmitButton = React.createClass({
-        saveChange: function () {
+
+    saveChange() {
         var ref = new Firebase(config.fb);
         ref.createUser({
           email:this.props.email,
@@ -18,7 +19,7 @@ var SubmitButton = React.createClass({
           }
       });
     },
-    render:function(){
+    render(){
         return(
             <div>
                 <input
@@ -26,6 +27,7 @@ var SubmitButton = React.createClass({
                     value="register"
                     className="btn btn-default"
                     onClick={this.saveChange}
+                    disabled={this.props.buttondisabled}
                 />
             </div>
         )
