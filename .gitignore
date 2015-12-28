@@ -1,3 +1,5 @@
 node_modules
 .idea
 misc
+*.log
+.DS_Store
