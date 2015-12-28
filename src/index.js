@@ -12,5 +12,5 @@ var React = require('react'),
 ReactDOM.render(
     <Router routes={router}/>,
     document.getElementById("container")
-)
+);
 
