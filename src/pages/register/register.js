@@ -21,16 +21,18 @@ var RegisterUserPage = React.createClass({
 
             //HOW TO SET STATE FROM HERE??
                 if (error) {
-                    component.setState({
-                        validClass: 'notValid',
-                        message: error
-                    });
+                    console.log(error);
+                    //component.setState({
+                    //    validClass: 'notValid',
+                    //    message: error
+                    //});
                 }
                 else {
-                    component.setState({
-                        validClass: 'valid',
-                        message: userData
-                    });
+                    console.log(userData);
+                    //component.setState({
+                    //    validClass: 'valid',
+                    //    message: userData
+                    //});
                 }
 
         });
@@ -41,8 +43,8 @@ var RegisterUserPage = React.createClass({
                 <div className = "col-1-4 " > </div>
                 <div className = "col-1-4 registerForm">
                     <FlashMessage
-                    message={this.state.message}
-                    validClass={this.state.validClass}
+                    //message={this.state.message}
+                    //validClass={this.state.validClass}
                     />
                     <RegisterForm
                         onSave={this.saveChange}

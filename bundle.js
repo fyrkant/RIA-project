@@ -24581,22 +24581,39 @@
 	var React = __webpack_require__(1),
 	    Firebase = __webpack_require__(210),
 	    RegisterForm = __webpack_require__(215),
+	    FlashMessage = __webpack_require__(216),
 	    config = __webpack_require__(211);
 
 	var RegisterUserPage = React.createClass({
 	    displayName: "RegisterUserPage",
+	    getInitialState: function getInitialState() {
+	        return {
+	            validClass: '',
+	            message: ''
+	        };
+	    },
 	    saveChange: function saveChange(email, password) {
+	        var component = this;
 	        var ref = new Firebase(config.fb);
-
 	        ref.createUser({
 	            email: email,
 	            password: password
 	        }, function (error, userData) {
+
+	            //HOW TO SET STATE FROM HERE??
 	            if (error) {
-	                console.log("Error creating user", error);
+	                console.log(error);
+	                //component.setState({
+	                //    validClass: 'notValid',
+	                //    message: error
+	                //});
 	            } else {
-	                console.log("Successfully created user accound with uid:", userData.uid);
-	            }
+	                    console.log(userData);
+	                    //component.setState({
+	                    //    validClass: 'valid',
+	                    //    message: userData
+	                    //});
+	                }
 	        });
 	    },
 	    render: function render() {
@@ -24611,6 +24628,10 @@
 	            React.createElement(
 	                "div",
 	                { className: "col-1-4 registerForm" },
+	                React.createElement(FlashMessage
+	                //message={this.state.message}
+	                //validClass={this.state.validClass}
+	                , null),
 	                React.createElement(RegisterForm, {
 	                    onSave: this.saveChange
 	                })
@@ -24651,7 +24672,6 @@
 	            });
 	        } else {
 	            this.setState({
-
 	                emailmessage: 'ok',
 	                emailColor: 'valid',
 	                buttondisabled: this.state.passwordColor === "valid" ? false : true
@@ -24767,6 +24787,26 @@
 	});
 
 	module.exports = RegisterUserForm;
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var FlashMessage = React.createClass({
+	    displayName: "FlashMessage",
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            { className: "flashbox valid" },
+	            "Successmessage!"
+	        );
+	    }
+	});
+	module.exports = FlashMessage;
 
 /***/ }
 /******/ ]);
