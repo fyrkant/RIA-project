@@ -23,7 +23,6 @@ var RegisterUserForm = React.createClass({
             });
         } else {
             this.setState({
-
                 emailmessage: 'ok',
                 emailColor: 'valid',
                 buttondisabled: this.state.passwordColor === "valid" ? false : true
