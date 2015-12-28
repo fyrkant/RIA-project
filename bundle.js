@@ -24779,7 +24779,6 @@
 	            React.createElement('input', {
 	                type: 'submit',
 	                value: 'register',
-	                className: 'btn btn-default',
 	                disabled: this.state.buttondisabled
 	            })
 	        );

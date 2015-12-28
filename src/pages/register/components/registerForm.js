@@ -12,7 +12,6 @@ var RegisterUserForm = React.createClass({
             passwordColor: '',
             buttondisabled: true
         };
-
     },
     validateEmail() {
         if (this.refs.emailInput.value !== this.refs.emailInputRepeat.value) {
@@ -66,7 +65,6 @@ var RegisterUserForm = React.createClass({
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3> Add your details:</h3>
-
                 <legend htmlFor="email">Your email:</legend>
                 <input
                     name="email"
@@ -109,7 +107,6 @@ var RegisterUserForm = React.createClass({
                 <input
                     type="submit"
                     value="register"
-                    className="btn btn-default"
                     disabled={this.state.buttondisabled}
                 />
             </form>
