@@ -5,7 +5,7 @@ var React = require('react'),
     IndexRoute = ReactRouter.IndexRoute,
     app = require('./pages/app'),
     home = require('./pages/home'),
-    login = require('./pages/login'),
+    login = require('./pages/login/login'),
     newThing = require('./pages/newThing'),
     firebase = require('./pages/playingwithfirebase'),
     register = require('./pages/register/register');
@@ -17,7 +17,6 @@ var routes = (
             <Route path="login" component={login} />
             <Route path="newThing" component={newThing} />
             <Route path="home" component={home} />
-            <Route path="firebase" component={firebase} />
             <Route path="register" component={register} />
         </Route>
     </Router>

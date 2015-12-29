@@ -1,15 +1,17 @@
+
 var React = require("react");
 
 var RegisterUserForm = React.createClass({
     getInitialState() {
         return {
+            emailInput:'',
+            passwordInput:'',
             emailmessage: '',
             emailColor: '',
             passwordmessage: '',
             passwordColor: '',
             buttondisabled: true
         };
-
     },
     validateEmail() {
         if (this.refs.emailInput.value !== this.refs.emailInputRepeat.value) {
@@ -63,7 +65,6 @@ var RegisterUserForm = React.createClass({
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3> Add your details:</h3>
-
                 <legend htmlFor="email">Your email:</legend>
                 <input
                     name="email"
@@ -99,13 +100,13 @@ var RegisterUserForm = React.createClass({
                     className={this.state.passwordColor}
                     onBlur={this.validatePasswords}
                     onChange={this.handleChange}
+
                 />
                 <p>{this.state.passwordmessage}</p>
 
                 <input
                     type="submit"
                     value="register"
-                    className="btn btn-default"
                     disabled={this.state.buttondisabled}
                 />
             </form>
