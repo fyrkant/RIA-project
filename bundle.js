@@ -24510,15 +24510,10 @@
 /* 211 */
 /***/ function(module, exports) {
 
-	'use strict';
-
 	/**
 	 * Created by Angamanga on 24/11/2015.
 	 */
-
-	module.exports = {
-	  fb: 'https://freecycle.firebaseio.com/'
-	};
+	"use strict";
 
 /***/ },
 /* 212 */
@@ -24533,10 +24528,10 @@
 	    IndexRoute = ReactRouter.IndexRoute,
 	    app = __webpack_require__(206),
 	    home = __webpack_require__(207),
-	    login = __webpack_require__(208),
+	    login = __webpack_require__(213),
 	    newThing = __webpack_require__(209),
-	    firebase = __webpack_require__(213),
-	    register = __webpack_require__(214);
+	    firebase = __webpack_require__(217),
+	    register = __webpack_require__(218);
 
 	var routes = React.createElement(
 	    Router,
@@ -24548,7 +24543,6 @@
 	        React.createElement(Route, { path: 'login', component: login }),
 	        React.createElement(Route, { path: 'newThing', component: newThing }),
 	        React.createElement(Route, { path: 'home', component: home }),
-	        React.createElement(Route, { path: 'firebase', component: firebase }),
 	        React.createElement(Route, { path: 'register', component: register })
 	    )
 	);
@@ -24557,6 +24551,181 @@
 
 /***/ },
 /* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1),
+	    Firebase = __webpack_require__(210),
+	    LoginForm = __webpack_require__(214),
+	    FlashMessage = __webpack_require__(215),
+	    fireRef = __webpack_require__(216);
+	//fragor:Hur skicka vidare anvandaren till dashboard?? Hur komma at authData.token efter auth? Vill ju bara kunna
+	//redigera annonser som hor till den inloggade anvandaren...
+
+	var LoginPage = React.createClass({
+	    displayName: "LoginPage",
+	    onLogin: function onLogin(email, password) {
+	        fireRef.authWithPassword({
+	            email: email,
+	            password: password
+	        }, function (error, authData) {
+	            if (error) {
+	                console.log("Login Failed!", error);
+	            } else {
+	                console.log("Authenticated successfully with payload:", authData);
+	                //window.location.href = '#/newThing#/' + authData.token;
+	            }
+	        }, { remember: "sessionOnly"
+	        });
+	    },
+
+	    //getIdToken: function() {
+	    //     var authHash = this.lock.parseHash(window.location.hash);
+	    //    if (!idToken && authHash) {
+	    //        if (authHash.id_token) {
+	    //            idToken = authHash.id_token
+	    //            localStorage.setItem('userToken', authHash.id_token);
+	    //        }
+	    //        if (authHash.error) {
+	    //            console.log("Error signing in", authHash);
+	    //            return null;
+	    //        }
+	    //    }
+	    //    return idToken;
+	    //},
+	    render: function render() {
+	        //if (this.state.idToken) {
+	        //    return <div>hej</div>;
+	        //} else {
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	                "div",
+	                { className: "col-1-4 " },
+	                " "
+	            ),
+	            React.createElement(
+	                "div",
+	                { className: "col-1-4 registerForm" },
+	                "if",
+	                React.createElement(LoginForm, {
+	                    onLogin: this.onLogin
+	                })
+	            )
+	        );
+	    }
+	    //}
+
+	});
+
+	module.exports = LoginPage;
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var LoginForm = React.createClass({
+	    displayName: "LoginForm",
+	    handleSubmit: function handleSubmit(e) {
+	        e.preventDefault();
+	        var email = this.refs.emailInput.value;
+	        var password = this.refs.passwordInput.value;
+	        this.props.onLogin(email, password);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            "form",
+	            { onSubmit: this.handleSubmit },
+	            React.createElement(
+	                "h3",
+	                null,
+	                " Sign in:"
+	            ),
+	            React.createElement(
+	                "legend",
+	                { htmlFor: "email" },
+	                "Your email:"
+	            ),
+	            React.createElement("input", {
+	                name: "email",
+	                type: "email",
+	                ref: "emailInput"
+	            }),
+	            React.createElement(
+	                "legend",
+	                { htmlFor: "password" },
+	                "Password"
+	            ),
+	            React.createElement("input", {
+	                name: "password",
+	                type: "password",
+	                ref: "passwordInput"
+	            }),
+	            React.createElement("input", {
+	                type: "submit",
+	                value: "sign in"
+
+	            })
+	        );
+	    }
+	});
+
+	module.exports = LoginForm;
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var FlashMessage = React.createClass({
+	    displayName: "FlashMessage",
+	    clickHandler: function clickHandler(e) {
+	        e.target.style.display = "none";
+	    },
+	    render: function render() {
+	        var divStyles = {
+	            borderColor: this.props.isError ? "palevioletred" : "forestgreen",
+	            color: this.props.isError ? "palevioletred" : "forestgreen",
+	            display: "block",
+	            border: "solid 1px",
+	            margin: "3px"
+	        };
+
+	        return React.createElement(
+	            "div",
+	            { style: divStyles, onClick: this.clickHandler },
+	            this.props.message
+	        );
+	    }
+	});
+
+	module.exports = FlashMessage;
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1),
+	    Firebase = __webpack_require__(210);
+
+	var ref = new Firebase('https://freecycle.firebaseio.com/');
+
+	module.exports = ref;
+
+/***/ },
+/* 217 */
 /***/ function(module, exports) {
 
 	//var react = require('react'),
@@ -24573,47 +24742,47 @@
 	"use strict";
 
 /***/ },
-/* 214 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1),
-	    Firebase = __webpack_require__(210),
-	    RegisterForm = __webpack_require__(215),
-	    FlashMessage = __webpack_require__(216),
-	    config = __webpack_require__(211);
+	    RegisterForm = __webpack_require__(219),
+	    FlashMessage = __webpack_require__(215),
+	    firebaseRef = __webpack_require__(216);
 
 	var RegisterUserPage = React.createClass({
 	    displayName: "RegisterUserPage",
 	    getInitialState: function getInitialState() {
 	        return {
-	            validClass: '',
-	            message: ''
+	            flash: null
 	        };
 	    },
 	    saveChange: function saveChange(email, password) {
-	        var component = this;
-	        var ref = new Firebase(config.fb);
-	        ref.createUser({
+	        var _this = this;
+
+	        firebaseRef.createUser({
 	            email: email,
 	            password: password
 	        }, function (error, userData) {
-
-	            //HOW TO SET STATE FROM HERE??
 	            if (error) {
 	                console.log(error);
-	                //component.setState({
-	                //    validClass: 'notValid',
-	                //    message: error
-	                //});
+	                _this.setState({
+	                    flash: {
+	                        isError: true,
+	                        message: "Error!! " + error.message
+	                    }
+	                });
 	            } else {
-	                    console.log(userData);
-	                    //component.setState({
-	                    //    validClass: 'valid',
-	                    //    message: userData
-	                    //});
-	                }
+	                console.log(userData);
+	                _this.setState({
+	                    flash: {
+	                        isError: false,
+	                        message: "User successfully saved!"
+	                    }
+	                });
+	            }
 	        });
 	    },
 	    render: function render() {
@@ -24628,10 +24797,10 @@
 	            React.createElement(
 	                "div",
 	                { className: "col-1-4 registerForm" },
-	                React.createElement(FlashMessage
-	                //message={this.state.message}
-	                //validClass={this.state.validClass}
-	                , null),
+	                this.state.flash ? React.createElement(FlashMessage, {
+	                    message: this.state.flash.message,
+	                    isError: this.state.flash.isError
+	                }) : '',
 	                React.createElement(RegisterForm, {
 	                    onSave: this.saveChange
 	                })
@@ -24643,19 +24812,18 @@
 	module.exports = RegisterUserPage;
 
 /***/ },
-/* 215 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    FormInput = __webpack_require__(220);
 
 	var RegisterUserForm = React.createClass({
-	    displayName: 'RegisterUserForm',
+	    displayName: "RegisterUserForm",
 	    getInitialState: function getInitialState() {
 	        return {
-	            emailInput: '',
-	            passwordInput: '',
 	            emailmessage: '',
 	            emailColor: '',
 	            passwordmessage: '',
@@ -24710,75 +24878,75 @@
 	    },
 	    render: function render() {
 	        return React.createElement(
-	            'form',
+	            "form",
 	            { onSubmit: this.handleSubmit },
 	            React.createElement(
-	                'h3',
+	                "h3",
 	                null,
-	                ' Add your details:'
+	                " Add your details:"
 	            ),
 	            React.createElement(
-	                'legend',
-	                { htmlFor: 'email' },
-	                'Your email:'
+	                "legend",
+	                { htmlFor: "email" },
+	                "Your email:"
 	            ),
-	            React.createElement('input', {
-	                name: 'email',
-	                type: 'email',
-	                ref: 'emailInput',
+	            React.createElement("input", {
+	                name: "email",
+	                type: "email",
+	                ref: "emailInput",
 	                className: this.state.emailColor
 	            }),
 	            React.createElement(
-	                'legend',
-	                { htmlFor: 'email' },
-	                ' Type your email again:'
+	                "legend",
+	                { htmlFor: "email" },
+	                " Type your email again:"
 	            ),
-	            React.createElement('input', {
-	                name: 'email',
-	                type: 'email',
-	                ref: 'emailInputRepeat',
+	            React.createElement("input", {
+	                name: "email",
+	                type: "email",
+	                ref: "emailInputRepeat",
 	                className: this.state.emailColor,
 	                onBlur: this.validateEmail,
 	                onChange: this.handleChange
 	            }),
 	            React.createElement(
-	                'p',
+	                "p",
 	                null,
 	                this.state.emailmessage
 	            ),
 	            React.createElement(
-	                'legend',
-	                { htmlFor: 'password' },
-	                'Password'
+	                "legend",
+	                { htmlFor: "password" },
+	                "Password"
 	            ),
-	            React.createElement('input', {
-	                name: 'password',
-	                type: 'password',
-	                ref: 'passwordInput',
+	            React.createElement("input", {
+	                name: "password",
+	                type: "password",
+	                ref: "passwordInput",
 	                className: this.state.passwordColor
 	            }),
 	            React.createElement(
-	                'legend',
-	                { htmlFor: 'passwordRepeat' },
-	                'Type your password again'
+	                "legend",
+	                { htmlFor: "passwordRepeat" },
+	                "Type your password again"
 	            ),
-	            React.createElement('input', {
-	                name: 'password',
-	                type: 'password',
-	                ref: 'passwordInputRepeat',
+	            React.createElement("input", {
+	                name: "password",
+	                type: "password",
+	                ref: "passwordInputRepeat",
 	                className: this.state.passwordColor,
 	                onBlur: this.validatePasswords,
 	                onChange: this.handleChange
 
 	            }),
 	            React.createElement(
-	                'p',
+	                "p",
 	                null,
 	                this.state.passwordmessage
 	            ),
-	            React.createElement('input', {
-	                type: 'submit',
-	                value: 'register',
+	            React.createElement("input", {
+	                type: "submit",
+	                value: "register",
 	                disabled: this.state.buttondisabled
 	            })
 	        );
@@ -24788,24 +24956,72 @@
 	module.exports = RegisterUserForm;
 
 /***/ },
-/* 216 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
 
-	var FlashMessage = React.createClass({
-	    displayName: "FlashMessage",
+	var FormInput = React.createClass({
+	    displayName: "FormInput",
+	    getInitialState: function getInitialState() {
+	        return {
+	            message: null
+	        };
+	    },
+	    validate: function validate() {
+	        var input = this.refs[this.props.type + "Input"];
+	        var repeat = this.refs[this.props.type + "InputRepeat"];
+
+	        if (input.value !== repeat.value) {
+	            this.setState({ message: "Values do not match!" });
+	        } else {
+	            this.setState({ message: "Ok!" });
+	        }
+	    },
 	    render: function render() {
 	        return React.createElement(
-	            "div",
-	            { className: "flashbox valid" },
-	            "Successmessage!"
+	            "span",
+	            null,
+	            React.createElement(
+	                "legend",
+	                { htmlFor: this.props.type },
+	                "Your ",
+	                this.props.type,
+	                ":"
+	            ),
+	            React.createElement("input", {
+	                className: this.state.message ? this.state.message === "Ok!" ? "valid" : "notValid" : "",
+	                name: this.props.type,
+	                type: this.props.type,
+	                ref: this.props.type + "Input"
+	            }),
+	            React.createElement(
+	                "legend",
+	                { htmlFor: this.props.type },
+	                " Type your ",
+	                this.props.type,
+	                " again:"
+	            ),
+	            React.createElement("input", {
+	                className: this.state.message ? this.state.message === "Ok!" ? "valid" : "notValid" : "",
+	                name: this.props.type,
+	                type: this.props.type,
+	                ref: this.props.type + "InputRepeat",
+	                onBlur: this.validate,
+	                onChange: this.validate
+	            }),
+	            React.createElement(
+	                "p",
+	                null,
+	                this.state.message
+	            )
 	        );
 	    }
 	});
-	module.exports = FlashMessage;
+
+	module.exports = FormInput;
 
 /***/ }
 /******/ ]);

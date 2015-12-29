@@ -1,39 +1,36 @@
 var React = require("react"),
-    Firebase = require("firebase"),
     RegisterForm = require("./components/registerForm.js"),
     FlashMessage = require("../components/flashMessage.js"),
-    config = require("../../utils/config.js");
+    firebaseRef = require('../../utils/firebase');
 
 var RegisterUserPage = React.createClass({
-    getInitialState(){
+    getInitialState() {
         return {
-        validClass:'',
-        message:''
-        }
+            flash: null
+        };
     },
     saveChange(email, password) {
-        var component = this;
-        let ref = new Firebase(config.fb);
-        ref.createUser({
+        firebaseRef.createUser({
             email: email,
             password: password
         }, (error, userData) => {
-
-            //HOW TO SET STATE FROM HERE??
-                if (error) {
-                    console.log(error);
-                    //component.setState({
-                    //    validClass: 'notValid',
-                    //    message: error
-                    //});
-                }
-                else {
-                    console.log(userData);
-                    //component.setState({
-                    //    validClass: 'valid',
-                    //    message: userData
-                    //});
-                }
+            if (error) {
+                console.log(error);
+                this.setState({
+                    flash: {
+                        isError: true,
+                        message: "Error!! " + error.message
+                    }
+                });
+            } else {
+                console.log(userData);
+                this.setState({
+                    flash: {
+                        isError: false,
+                        message: "User successfully saved!"
+                    }
+                });
+            }
 
         });
     },
@@ -42,13 +39,14 @@ var RegisterUserPage = React.createClass({
             <div>
                 <div className = "col-1-4 " > </div>
                 <div className = "col-1-4 registerForm">
-                    <FlashMessage
-                    //message={this.state.message}
-                    //validClass={this.state.validClass}
-                    />
+                    {this.state.flash ?
+                        <FlashMessage
+                            message={this.state.flash.message}
+                            isError={this.state.flash.isError}
+                        /> : ''}
                     <RegisterForm
                         onSave={this.saveChange}
-                       />
+                    />
                 </div>
             </div>
         );

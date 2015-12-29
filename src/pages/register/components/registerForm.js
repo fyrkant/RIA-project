@@ -1,11 +1,11 @@
 
-var React = require("react");
+var React = require("react"),
+    FormInput = require("./form-input");
+
 
 var RegisterUserForm = React.createClass({
     getInitialState() {
         return {
-            emailInput:'',
-            passwordInput:'',
             emailmessage: '',
             emailColor: '',
             passwordmessage: '',
